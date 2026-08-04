@@ -107,7 +107,7 @@
   .site-footer a{ color:var(--gold); text-decoration:none; }
   .site-footer a:hover{ text-decoration:underline; }
 
-  .lang-hidden{ display:none !important; }
+  .lang-hidden, .status-hidden{ display:none !important; }
 </style>
 </head>
 <body>
@@ -180,8 +180,12 @@
           </svg>
           <span class="version-chip mono" id="ft-version">v0.3.0</span>
         </div>
-        <span class="status"><span class="ring live"></span>
-          <span data-lang="fr">Déployé</span><span data-lang="en">Deployed</span>
+        <span class="status" id="ft-status">
+          <span class="ring live" id="ft-status-ring"></span>
+          <span data-lang="fr" data-status="live">Déployé</span>
+          <span data-lang="en" data-status="live">Deployed</span>
+          <span data-lang="fr" data-status="dev" class="status-hidden">En développement</span>
+          <span data-lang="en" data-status="dev" class="status-hidden">In development</span>
         </span>
       </div>
       <h2>FletchTime</h2>
@@ -230,8 +234,12 @@
           </svg>
           <span class="version-chip mono" id="fs-version">v0.3</span>
         </div>
-        <span class="status"><span class="ring dev"></span>
-          <span data-lang="fr">En développement</span><span data-lang="en">In development</span>
+        <span class="status" id="fs-status">
+          <span class="ring dev" id="fs-status-ring"></span>
+          <span data-lang="fr" data-status="dev">En développement</span>
+          <span data-lang="en" data-status="dev">In development</span>
+          <span data-lang="fr" data-status="live" class="status-hidden">Déployé</span>
+          <span data-lang="en" data-status="live" class="status-hidden">Deployed</span>
         </span>
       </div>
       <h2>FletchScore</h2>
@@ -299,21 +307,38 @@
   });
 
   // Pull the latest published release tag straight from GitHub so the
-  // badges never drift from what's actually tagged. Falls back silently
-  // to the static value already in the markup (no releases yet, offline,
-  // or API rate-limited).
-  async function loadLatestVersion(repo, elementId){
+  // version badge and the "deployed / in development" status never
+  // drift from what's actually tagged on GitHub:
+  //  - a published release  -> deployed
+  //  - repo exists, no release yet (404) -> in development
+  //  - network error / API rate-limited -> leave the static fallback
+  //    already in the markup untouched, in either case
+  function setStatus(prefix, status){
+    document.querySelectorAll(`#${prefix}-status [data-status]`).forEach(el=>{
+      el.classList.toggle('status-hidden', el.dataset.status !== status);
+    });
+    const ring = document.getElementById(`${prefix}-status-ring`);
+    ring.classList.toggle('live', status === 'live');
+    ring.classList.toggle('dev', status === 'dev');
+  }
+
+  async function loadStatusAndVersion(repo, prefix){
     try{
       const res = await fetch(`https://api.github.com/repos/MrFanghoDev/${repo}/releases/latest`);
-      if(!res.ok) return;
+      if(res.status === 404){
+        setStatus(prefix, 'dev');
+        return;
+      }
+      if(!res.ok) return; // rate-limited or other error: keep static fallback
       const data = await res.json();
       if(data && data.tag_name){
-        document.getElementById(elementId).textContent = data.tag_name;
+        document.getElementById(`${prefix}-version`).textContent = data.tag_name;
       }
+      setStatus(prefix, 'live');
     }catch(e){ /* keep static fallback */ }
   }
-  loadLatestVersion('fletchtime', 'ft-version');
-  loadLatestVersion('fletchscore', 'fs-version');
+  loadStatusAndVersion('fletchtime', 'ft');
+  loadStatusAndVersion('fletchscore', 'fs');
 </script>
 
 </body>
