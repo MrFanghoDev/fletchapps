@@ -107,7 +107,7 @@
   .site-footer a{ color:var(--gold); text-decoration:none; }
   .site-footer a:hover{ text-decoration:underline; }
 
-  [data-lang="en"]{ display:none; }
+  .lang-hidden{ display:none !important; }
 </style>
 </head>
 <body>
@@ -270,7 +270,7 @@
   // reliable for every element, buttons included.
   function setLang(lang){
     document.querySelectorAll('[data-lang]').forEach(el=>{
-      el.style.display = (el.dataset.lang === lang) ? '' : 'none';
+      el.classList.toggle('lang-hidden', el.dataset.lang !== lang);
     });
     document.querySelectorAll('.lang-btn').forEach(b=>{
       b.classList.toggle('active', b.dataset.setLang === lang);
