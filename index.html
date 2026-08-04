@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FletchApps — Outils de compétition tir à l'arc</title>
+<link rel="icon" href="fletchapps-logo.png">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Page-specific rules for the FletchApps hub, built on theme.css tokens.
+     Loaded after theme.css so these can override/extend it per the
+     convention documented at the top of that file. */
+
+  .page{ max-width:1040px; }
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  /* ---------- nav ---------- */
+  .nav-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1040px; margin:0 auto; padding:1.4rem 1rem 0;
+  }
+  .nav-brand{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:15px; letter-spacing:0.04em; }
+  .nav-logo-crop{ width:32px; height:32px; border-radius:9px; overflow:hidden; background:#000; flex-shrink:0; }
+  .nav-logo-crop img{ width:100%; height:100%; object-fit:cover; object-position:50% 16%; display:block; }
+  .nav-controls{ display:flex; gap:0.5rem; }
+
+  /* ---------- hero ---------- */
+  .hero{ text-align:center; padding:56px 0 36px; }
+  .hero img.mark{ width:186px; height:auto; margin:0 auto 20px; display:block; }
+  .hero h1{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+  .hero p.tagline{ font-size:17px; color:var(--text-muted); max-width:480px; margin:0 auto; line-height:1.6; }
+  .hero .sub{
+    margin-top:20px; font-family:var(--font-mono); font-size:12px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);
+  }
+
+  /* ---------- about ---------- */
+  .about{ padding:8px 0 44px; text-align:center; }
+  .about .lede{ max-width:620px; margin:0 auto 22px; font-size:15px; line-height:1.75; color:var(--text-muted); }
+  .pills{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+  .pill{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:7px 14px; border:1px solid var(--border); border-radius:999px; color:var(--gold);
+  }
+
+  /* ---------- product cards ---------- */
+  .products{ padding:32px 0 80px; }
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:720px){ .grid{ grid-template-columns:1fr; } }
+
+  .card{
+    border:1px solid var(--border); border-radius:16px; background:var(--surface);
+    padding:26px 24px 22px; position:relative;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{ border-color:var(--gold); transform:translateY(-2px); }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+
+  .logo-frame{
+    width:56px; height:56px; flex-shrink:0;
+    border:1px solid var(--border); border-radius:14px;
+    background:#141414;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .logo-frame svg{ width:100%; height:100%; display:block; border-radius:14px; }
+  .version-chip{
+    position:absolute; bottom:-8px; right:-10px;
+    background:var(--gold); color:#1a1206;
+    font-family:var(--font-mono); font-size:10px; font-weight:600;
+    padding:3px 8px; border-radius:999px;
+    border:2px solid var(--bg); white-space:nowrap;
+  }
+
+  .status{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:5px 10px 5px 8px; border:1px solid var(--border); border-radius:999px; color:var(--text-muted);
+  }
+  .ring{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .ring.live{ background:var(--gold); }
+  .ring.dev{ background:var(--blue); }
+
+  .card h2{ font-size:23px; margin:18px 0 10px; color:var(--text); }
+  .card p.desc{ color:var(--text-muted); font-size:14.5px; margin:0 0 18px; min-height:64px; }
+  .card .features{ list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:8px; }
+  .card .features li{ font-size:13.5px; color:var(--text); padding-left:18px; position:relative; }
+  .card .features li::before{ content:""; position:absolute; left:0; top:7px; width:8px; height:1px; background:var(--gold); }
+
+  .card-actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  a.btn-primary, a.btn-ghost{
+    font-family:var(--font-ui); font-size:0.85rem; font-weight:600;
+    padding:0.6rem 1rem; border-radius:8px; text-decoration:none;
+    display:inline-flex; align-items:center;
+  }
+  a.btn-primary{ background:var(--gold); color:#1a1206; }
+  a.btn-ghost{ border:1px solid var(--border); color:var(--text); }
+  a.btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- footer ---------- */
+  .site-footer{ border-top:1px solid var(--border); padding:26px 0 40px; text-align:center; }
+  .site-footer p{ margin:0; font-size:12.5px; color:var(--text-muted); font-family:var(--font-mono); }
+  .site-footer a{ color:var(--gold); text-decoration:none; }
+  .site-footer a:hover{ text-decoration:underline; }
+
+  [data-lang="en"]{ display:none; }
+  html.lang-en [data-lang="fr"]{ display:none; }
+  html.lang-en [data-lang="en"]{ display:inline; }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="nav-brand">
+    <div class="nav-logo-crop"><img src="fletchapps-logo.png" alt=""></div>
+    FletchApps
+  </div>
+  <div class="nav-controls">
+    <div class="lang-toggle" role="group" aria-label="Langue / Language">
+      <button class="lang-btn active" data-set-lang="fr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" data-set-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="theme-toggle" role="group" aria-label="Thème / Theme">
+      <button class="theme-btn" data-set-theme="light" onclick="setTheme('light')">
+        <span data-lang="fr">Clair</span><span data-lang="en">Light</span>
+      </button>
+      <button class="theme-btn" data-set-theme="dark" onclick="setTheme('dark')">
+        <span data-lang="fr">Sombre</span><span data-lang="en">Dark</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="page hero">
+  <img class="mark" src="fletchapps-logo.png" alt="FletchApps">
+  <h1>FletchApps</h1>
+  <p class="tagline">
+    <span data-lang="fr">Les outils numériques des Archers Libres de Fontaine-le-Port pour le chronométrage et la notation de compétitions FFTL / IFAA.</span>
+    <span data-lang="en">Digital tools by Archers Libres de Fontaine-le-Port for FFTL / IFAA competition timing and scoring.</span>
+  </p>
+  <div class="sub">
+    <span data-lang="fr">Deux outils, une même flèche</span>
+    <span data-lang="en">Two tools, one arrow</span>
+  </div>
+</header>
+
+<section class="page about">
+  <p class="lede">
+    <span data-lang="fr">FletchApps régroupe les outils numériques développés en solo pour les Archers Libres de Fontaine-le-Port : un chronomètre de compétition et une application de notation, conçus pour les formats FFTL et IFAA. Le code est publié sur GitHub sous licence libre GNU GPLv3, et développé par itérations avec l'assistance d'une IA (Claude, Anthropic) en pair-programming — de l'architecture aux tests — le tout depuis un simple téléphone Android.</span>
+    <span data-lang="en">FletchApps brings together the tools built solo for Archers Libres de Fontaine-le-Port: a competition timer and a scoring application, designed for FFTL and IFAA formats. The code is published on GitHub under the free GNU GPLv3 license, and developed iteratively with AI pair-programming assistance (Claude, Anthropic) — from architecture to tests — all from an Android phone.</span>
+  </p>
+  <div class="pills">
+    <span class="pill">GNU GPLv3</span>
+    <span class="pill">FFTL &amp; IFAA</span>
+    <span class="pill" data-lang="fr">Assisté par IA</span>
+    <span class="pill" data-lang="en">AI-assisted</span>
+    <span class="pill">FR / EN</span>
+  </div>
+</section>
+
+<main class="page products">
+  <div class="grid">
+
+    <!-- FletchTime -->
+    <article class="card">
+      <div class="card-top">
+        <div class="logo-frame">
+          <svg viewBox="0 0 130 130" role="img" aria-label="FletchTime" xmlns="http://www.w3.org/2000/svg">
+            <g transform="matrix(0.79171051,0,0,0.79171051,58.864507,-213.35603)">
+              <circle cx="8.2298059" cy="362.82373" r="63.668499" fill="#141414" stroke="#d1a13d" stroke-width="6.06366"/>
+              <path d="m 61.012494,319.77816 3.908348,-3.90835 2.053696,2.09042 c 0.51813,0.51813 1.035951,0.77704 1.812992,0.77704 0.77704,0 1.29517,-0.25891 1.812992,-0.77704 l 2.331122,-2.07221 c 3.885203,-4.14443 3.885203,-10.61966 0,-14.50487 l -3.885204,-3.8852 c -4.144422,-3.8852 -10.619659,-3.8852 -14.504862,0 l -2.072212,2.07221 c -1.035951,1.03595 -1.035951,2.59003 0,3.62629 l 1.66857,1.69851 -4.032403,4.0324 C 40.543736,301.35631 28.898926,296.31912 16.207364,294.84404 v -5.63463 h 5.180374 c 1.554082,0 2.590033,-1.03595 2.590033,-2.59003 v -10.36106 c 0,-1.55408 -1.035951,-2.59003 -2.590033,-2.59003 H -4.5138236 c -1.5540814,0 -2.5900328,1.03595 -2.5900328,2.59003 v 10.36075 c 0,1.55408 1.0359514,2.59003 2.5900328,2.59003 h 5.1803742 v 5.63463 c -12.7554416,1.4828 -24.4530206,6.56442 -34.0419746,14.19874 l -4.033329,-4.03333 1.812993,-1.81299 c 1.035951,-1.03596 1.035951,-2.59004 0,-3.6263 l -1.812993,-2.07221 c -3.885203,-3.8852 -10.360748,-3.8852 -14.245951,0 l -4.144423,4.14442 c -3.885204,3.88521 -3.885204,10.36075 0,14.24596 l 2.072211,2.07221 c 0.51813,0.51813 1.035952,0.77704 1.812992,0.77704 0.51813,0 1.295171,-0.25891 1.554082,-0.77704 l 2.072211,-2.07221 4.033329,4.03333 c -9.161242,11.50717 -14.652988,26.04876 -14.652988,41.81269 0,18.39438 7.374172,35.02176 19.288076,47.15445 0.109551,0.17745 0.239778,0.34748 0.397161,0.50486 0.181453,0.18146 0.363833,0.32927 0.556395,0.44716 12.167878,11.90835 28.8125343,19.23808 47.1026155,19.23808 18.3332845,0 35.0137375,-7.36399 47.1890215,-19.32202 0.168801,-0.10245 0.32927,-0.2225 0.470297,-0.36322 0.157075,-0.15707 0.28761,-0.32741 0.397161,-0.50486 11.914213,-12.13269 19.288076,-28.75976 19.288076,-47.15445 -3.08e-4,-15.82966 -5.538652,-30.42618 -14.769019,-41.95588 z m 4.149051,-18.65392 3.885204,3.88521 c 2.072211,1.81299 2.072211,4.92146 0,6.99336 l -0.258911,0.25891 -10.878878,-10.87857 c 2.072211,-2.07221 5.180374,-2.07221 7.252585,-0.25891 z m 0.258911,63.20014 h 5.12205 c -0.629533,15.16247 -6.755749,28.96621 -16.42864,39.46058 l -5.011265,-5.01126 c -1.035951,-1.03596 -2.590032,-1.03596 -3.626292,0 -1.035952,1.03595 -1.035952,2.59003 0,3.62629 l 5.011264,5.01126 c -10.49437,9.67289 -24.298414,15.7988 -39.460583,16.42864 v -5.12205 c 0,-1.55408 -1.0359511,-2.59003 -2.5900325,-2.59003 -1.5540814,0 -2.5900328,1.03595 -2.5900328,2.59003 v 5.12205 C -9.3155527,423.21036 -23.119289,417.08414 -33.613659,407.41125 l 5.011265,-5.01126 c 1.035951,-1.03595 1.035951,-2.59003 0,-3.62629 -1.035952,-1.03596 -2.590033,-1.03596 -3.626293,0 l -5.011264,5.01126 c -9.672892,-10.49437 -15.798799,-24.29811 -16.428641,-39.46058 h 5.12205 c 1.554082,0 2.590033,-1.03595 2.590033,-2.59004 0,-1.55408 -1.035951,-2.59003 -2.590033,-2.59003 H -53.6689 c 0.629532,-15.16248 6.755748,-28.96621 16.42864,-39.46058 l 5.011264,5.01126 c 0.51813,0.51813 1.035952,0.77704 1.812993,0.77704 0.77704,0 1.29517,-0.25891 1.812992,-0.77704 1.035951,-1.03595 1.035951,-2.59003 0,-3.62629 l -5.011265,-5.01127 c 9.859591,-9.08779 22.640337,-15.0449 36.7245856,-16.25459 0.1342386,0.0157 0.2694029,0.0265 0.4048759,0.0265 0.8217868,-0.0586 1.5886439,-0.10338 2.3311221,-0.13547 v 5.05693 c 0,1.55409 1.0359514,2.59004 2.5900328,2.59004 1.5540814,0 2.5900326,-1.03595 2.5900326,-2.59004 v -5.06249 c 0.811295,0.0324 1.663015,0.079 2.590033,0.14072 0.101219,0 0.1975,-0.005 0.290387,-0.0136 13.276657,1.17174 25.389604,6.56103 34.979484,14.81439 0.534177,0.51874 1.064651,0.99892 1.573523,1.4544 l -4.983491,4.98411 c -1.035952,1.03595 -1.035952,2.59003 0,3.62629 0.51813,0.51813 1.035951,0.77704 1.812992,0.77704 0.777041,0 1.29517,-0.25891 1.812992,-0.77704 l 4.97053,-4.97053 c 0.469681,0.52215 0.96374,1.06219 1.505015,1.60315 0.09906,0.14874 0.210461,0.27311 0.326801,0.38574 8.634163,10.21571 14.047835,23.22698 14.637867,37.43065 h -5.12205 c -1.554081,0 -2.590033,1.03596 -2.590033,2.59004 0,1.55439 1.035952,2.59065 2.590033,2.59065 z M 57.90896,316.14693 c -0.08332,-0.0833 -0.174973,-0.17498 -0.269712,-0.26971 -0.336676,-0.36106 -0.677364,-0.7181 -1.021756,-1.07175 -0.126832,-0.26046 -0.298719,-0.50795 -0.521524,-0.73075 -0.206758,-0.20676 -0.43481,-0.37063 -0.674896,-0.49468 -0.326493,-0.37309 -0.688474,-0.75945 -1.138096,-1.05941 l 3.626292,-3.62629 3.626293,3.62629 z" fill="#141414"/>
+              <path d="m 61.012494,320.06913 3.908348,-3.90835 2.053696,2.09042 c 0.51813,0.51813 1.035951,0.77704 1.812992,0.77704 0.77704,0 1.29517,-0.25891 1.812992,-0.77704 l 2.331122,-2.07221 c 3.885203,-4.14443 3.885203,-10.61966 0,-14.50487 l -3.885204,-3.8852 c -4.144422,-3.8852 -10.619659,-3.8852 -14.504862,0 l -2.072212,2.07221 c -1.035951,1.03595 -1.035951,2.59003 0,3.62629 l 1.66857,1.69851 -4.032403,4.0324 C 40.543736,301.64728 28.898926,296.61009 16.207364,295.13501 v -5.63463 h 5.180374 c 1.554082,0 2.590033,-1.03595 2.590033,-2.59003 v -10.36106 c 0,-1.55408 -1.035951,-2.59003 -2.590033,-2.59003 H -4.5138236 c -1.5540814,0 -2.5900328,1.03595 -2.5900328,2.59003 v 10.36075 c 0,1.55408 1.0359514,2.59003 2.5900328,2.59003 h 5.1803742 v 5.63463 c -12.7554416,1.4828 -24.4530206,6.56442 -34.0419746,14.19874 l -4.033329,-4.03333 1.812993,-1.81299 c 1.035951,-1.03596 1.035951,-2.59004 0,-3.6263 l -1.812993,-2.07221 c -3.885203,-3.8852 -10.360748,-3.8852 -14.245951,0 l -4.144423,4.14442 c -3.885204,3.88521 -3.885204,10.36075 0,14.24596 l 2.072211,2.07221 c 0.51813,0.51813 1.035952,0.77704 1.812992,0.77704 0.51813,0 1.295171,-0.25891 1.554082,-0.77704 l 2.072211,-2.07221 4.033329,4.03333 c -9.161242,11.50717 -14.652988,26.04876 -14.652988,41.81269 0,18.39438 7.374172,35.02176 19.288076,47.15445 0.109551,0.17745 0.239778,0.34748 0.397161,0.50486 0.181453,0.18146 0.363833,0.32927 0.556395,0.44716 12.167878,11.90835 28.8125343,19.23808 47.1026155,19.23808 18.3332845,0 35.0137375,-7.36399 47.1890215,-19.32202 0.168801,-0.10245 0.32927,-0.2225 0.470297,-0.36322 0.157075,-0.15707 0.28761,-0.32741 0.397161,-0.50486 11.914213,-12.13269 19.288076,-28.75976 19.288076,-47.15445 -3.08e-4,-15.82966 -5.538652,-30.42618 -14.769019,-41.95588 z m 4.149051,-18.65392 3.885204,3.88521 c 2.072211,1.81299 2.072211,4.92146 0,6.99336 l -0.258911,0.25891 -10.878878,-10.87857 c 2.072211,-2.07221 5.180374,-2.07221 7.252585,-0.25891 z m 0.258911,63.20014 h 5.12205 c -0.629533,15.16247 -6.755749,28.96621 -16.42864,39.46058 l -5.011265,-5.01126 c -1.035951,-1.03596 -2.590032,-1.03596 -3.626292,0 -1.035952,1.03595 -1.035952,2.59003 0,3.62629 l 5.011264,5.01126 c -10.49437,9.67289 -24.298414,15.7988 -39.460583,16.42864 v -5.12205 c 0,-1.55408 -1.0359511,-2.59003 -2.5900325,-2.59003 -1.5540814,0 -2.5900328,1.03595 -2.5900328,2.59003 v 5.12205 C -9.3155527,423.50133 -23.119289,417.37511 -33.613659,407.70222 l 5.011265,-5.01126 c 1.035951,-1.03595 1.035951,-2.59003 0,-3.62629 -1.035952,-1.03596 -2.590033,-1.03596 -3.626293,0 l -5.011264,5.01126 c -9.672892,-10.49437 -15.798799,-24.29811 -16.428641,-39.46058 h 5.12205 c 1.554082,0 2.590033,-1.03595 2.590033,-2.59004 0,-1.55408 -1.035951,-2.59003 -2.590033,-2.59003 H -53.6689 c 0.629532,-15.16248 6.755748,-28.96621 16.42864,-39.46058 l 5.011264,5.01126 c 0.51813,0.51813 1.035952,0.77704 1.812993,0.77704 0.77704,0 1.29517,-0.25891 1.812992,-0.77704 1.035951,-1.03595 1.035951,-2.59003 0,-3.62629 l -5.011265,-5.01127 c 9.859591,-9.08779 22.640337,-15.0449 36.7245856,-16.25459 0.1342386,0.0157 0.2694029,0.0265 0.4048759,0.0265 0.8217868,-0.0586 1.5886439,-0.10338 2.3311221,-0.13547 v 5.05693 c 0,1.55409 1.0359514,2.59004 2.5900328,2.59004 1.5540814,0 2.5900326,-1.03595 2.5900326,-2.59004 v -5.06249 c 0.811295,0.0324 1.663015,0.079 2.590033,0.14072 0.101219,0 0.1975,-0.005 0.290387,-0.0136 13.276657,1.17174 25.389604,6.56103 34.979484,14.81439 0.534177,0.51874 1.064651,0.99892 1.573523,1.4544 l -4.983491,4.98411 c -1.035952,1.03595 -1.035952,2.59003 0,3.62629 0.51813,0.51813 1.035951,0.77704 1.812992,0.77704 0.777041,0 1.29517,-0.25891 1.812992,-0.77704 l 4.97053,-4.97053 c 0.469681,0.52215 0.96374,1.06219 1.505015,1.60315 0.09906,0.14874 0.210461,0.27311 0.326801,0.38574 8.634163,10.21571 14.047835,23.22698 14.637867,37.43065 h -5.12205 c -1.554081,0 -2.590033,1.03596 -2.590033,2.59004 0,1.55439 1.035952,2.59065 2.590033,2.59065 z M 57.90896,316.4379 c -0.08332,-0.0833 -0.174973,-0.17498 -0.269712,-0.26971 -0.336676,-0.36106 -0.677364,-0.7181 -1.021756,-1.07175 -0.126832,-0.26046 -0.298719,-0.50795 -0.521524,-0.73075 -0.206758,-0.20676 -0.43481,-0.37063 -0.674896,-0.49468 -0.326493,-0.37309 -0.688474,-0.75945 -1.138096,-1.05941 l 3.626292,-3.62629 3.626293,3.62629 z" fill="#d1a13d"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="m 42.979353,324.14969 c 0.918939,0.88502 1.334404,2.1706 1.107481,3.4259 l -3.459041,19.14363 c -0.37461,2.07348 -2.359123,3.45067 -4.432761,3.07603 -2.073259,-0.37469 -3.450748,-2.35928 -3.076138,-4.43276 l 1.21863,-6.74377 -35.08216889,36.41455 0.2549271,13.67806 c 0.018854,1.01161 -0.36472771,1.98951 -1.06699931,2.71807 l -14.9735089,15.5424 c -1.070618,1.11128 -2.705228,1.46839 -4.141601,0.90446 -1.436411,-0.56393 -2.391698,-1.93737 -2.420456,-3.48034 l -0.213281,-11.44352 -11.443525,0.21328 c -1.542816,0.0288 -2.951058,-0.87454 -3.568036,-2.28902 -0.616981,-1.41448 -0.321222,-3.06117 0.749395,-4.17245 l 14.973661,-15.54242 c 0.702042,-0.72855 1.664769,-1.14868 2.676453,-1.16754 l 13.6780283,-0.25493 35.0820907,-36.41462 -6.693831,1.469 c -2.057856,0.45165 -4.092309,-0.85063 -4.544304,-2.90871 -0.451612,-2.05809 0.850972,-4.09262 2.908829,-4.54427 l 19.00145,-4.16997 c 1.246115,-0.27346 2.546148,0.0939 3.464706,0.97894 z m -56.705772,53.36084 -4.469002,0.0833 -7.486831,7.77121 4.469003,-0.0833 z m -1.991773,13.06514 0.0833,4.46909 7.4868297,-7.77121 -0.083292,-4.46909 z" fill="#d1a13d"/>
+            </g>
+          </svg>
+          <span class="version-chip mono" id="ft-version">v0.3.0</span>
+        </div>
+        <span class="status"><span class="ring live"></span>
+          <span data-lang="fr">Déployé</span><span data-lang="en">Deployed</span>
+        </span>
+      </div>
+      <h2>FletchTime</h2>
+      <p class="desc">
+        <span data-lang="fr">Chronomètre de compétition pour les formats Indoor et Flint. Moteur Python, serveur WebSocket, affichage temps réel.</span>
+        <span data-lang="en">Competition timer for Indoor and Flint formats. Python engine, WebSocket server, real-time display.</span>
+      </p>
+      <ul class="features">
+        <li><span data-lang="fr">Formats Indoor &amp; Flint</span><span data-lang="en">Indoor &amp; Flint formats</span></li>
+        <li><span data-lang="fr">Serveur WebSocket + affichage HTTP</span><span data-lang="en">WebSocket server + HTTP display</span></li>
+        <li><span data-lang="fr">Interface GUI (customtkinter)</span><span data-lang="en">customtkinter GUI</span></li>
+      </ul>
+      <div class="card-actions">
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchtime" target="_blank" rel="noopener" data-lang="fr">Voir le projet</a>
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchtime" target="_blank" rel="noopener" data-lang="en">View project</a>
+        <a class="btn-ghost" href="https://github.com/MrFanghoDev/fletchtime" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+    <!-- FletchScore -->
+    <article class="card">
+      <div class="card-top">
+        <div class="logo-frame">
+          <svg viewBox="0 0 130 130" role="img" aria-label="FletchScore" xmlns="http://www.w3.org/2000/svg">
+            <g transform="matrix(0.18666471,0,0,0.18666471,-170.60162,171.59672)">
+              <g transform="matrix(1.340025,0,0,1.340025,1413.5348,-1295.2668)">
+                <g transform="matrix(1.0017798,0,0,1.0017798,-334.81222,287.09875)">
+                  <rect style="fill:#141414;fill-opacity:1;stroke:#141414;stroke-width:24.7715;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:999.7" width="366.79437" height="388.24512" x="58.454269" y="111.09064" rx="43.452919" ry="51.38768"/>
+                  <rect style="fill:#141414;fill-opacity:1;stroke:#d1a13d;stroke-width:19.2674;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:999.7" width="338.83932" height="370.45175" x="74.543587" y="120.86723" rx="40.141174" ry="49.032574"/>
+                  <path style="fill:#141414;stroke:#141414;stroke-width:24.4555" d="m 411.68302,499.65503 h -298.38 c -5.523,0 -10,-4.478 -10,-10 0,-5.522 4.478,-10 10,-10 13.085,0 24.766,-8.769 28.405,-21.324 3.155,-10.9 12.782,-18.227 23.954,-18.227 h 281.61 c 3.891,0 7.617,1.658 10.225,4.55 2.601,2.885 3.863,6.754 3.462,10.613 -2.633,25.306 -23.816,44.388 -49.276,44.388 z m -258.629,-20 h 258.629 c 12.76,0 23.719,-8.033 27.822,-19.551 h -273.843 c -2.181,0 -4.088,1.523 -4.744,3.792 -1.679,5.793 -4.377,11.102 -7.864,15.759 z"/>
+                  <path style="fill:#d1a13d;stroke:none" d="m -255.12739,1145.349 c -27.322,0 -49.55,-22.229 -49.55,-49.551 0,-5.522 4.477,-10 10,-10 5.522,0 10,4.478 10,10 0,16.294 13.256,29.551 29.55,29.551 5.522,0 10,4.478 10,10 0,5.523 -4.478,10 -10,10 z" transform="matrix(0.99822336,0,0,0.99822336,368.84984,-643.71083)"/>
+                  <path style="fill:#d1a13d;stroke:none" d="M 43.252614,1145.349 H -255.12739 c -5.523,0 -10,-4.478 -10,-10 0,-5.522 4.478,-10 10,-10 13.085,0 24.766,-8.769 28.405,-21.324 3.155,-10.9 12.782,-18.227 23.954,-18.227 H 78.841614 c 3.891,0 7.617,1.658 10.225,4.55 2.601,2.885 3.863,6.754 3.462,10.613 -2.633,25.306 -23.816,44.388 -49.276,44.388 z m -258.629004,-20 H 43.252614 c 12.76,0 23.719,-8.033 27.822,-19.551 H -202.76839 c -2.181,0 -4.088,1.523 -4.744,3.792 -1.679,5.793 -4.377,11.102 -7.864,15.759 z" transform="matrix(0.99822336,0,0,0.99822336,368.84984,-643.71083)"/>
+                </g>
+                <g transform="translate(-388.41729,236.80933)">
+                  <path style="fill:#141414;stroke:#141414;stroke-width:24.499;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:999.7" d="m -346.18867,715.83953 c 0,0 152.02201,-35.9107 216.66128,57.45714 64.639278,93.36784 47.880953,195.11489 47.880953,195.11489 0,0 -124.490463,-40.69884 -178.356523,-112.52026 -53.86607,-71.82141 -86.18571,-140.05177 -86.18571,-140.05177 z" transform="translate(399.43361,-632.0189)"/>
+                  <path style="fill:#141414;stroke:#141414;stroke-width:24.4555" d="m 182.71302,350.33503 c -4.559,0 -8.553,-3.078 -9.688,-7.51 h 10e-4 c -4.957,-17.337 -7.735,-35.289 -8.279,-53.44 -1.895,-63.042 23.63,-123.726 70.028,-166.492 38.46,-35.477004 88.474,-55.882004 140.827,-57.453004 25.885,-0.783 51.341,2.968 75.672,11.131 4.078,1.263 7.043,5.063 7.043,9.555 0,5.522 -4.473,10 -9.995,10 -1.085,0 -2.173,-0.177 -3.201,-0.523 -22.143,-7.457 -45.334,-10.879 -68.919,-10.173 -47.536,1.428 -92.948,19.953004 -127.869,52.166004 -42.137,38.838 -65.315,93.943 -63.596,151.188 0.482,16.018 2.872,31.855 7.111,47.1 0.718,1.556 1.045,3.317 0.867,5.147 -0.059,0.604 -0.153,1.079 -0.229,1.426 -0.988,4.528 -4.959,7.794 -9.593,7.877 -0.059,0.001 -0.12,0.001 -0.18,0.001 z m -0.113,-10.015 -9.6,2.406 0.027,0.099 9.574,-2.505 z" transform="matrix(-1.0017798,0,0,1.0017798,493.69869,-3.2426687)"/>
+                  <path style="fill:#141414;stroke:#141414;stroke-width:24.4555" d="m 177.83702,411.62503 c -5.367,0 -9.806,-4.258 -9.988,-9.662 -0.688,-20.38 1.004,-41.722 5.032,-63.433 1.007,-5.431 6.223,-9.015 11.656,-8.008 5.43,1.007 9.016,6.226 8.008,11.656 -3.764,20.288 -5.348,40.175 -4.708,59.108 0.187,5.52 -4.137,10.145 -9.656,10.332 -0.115,0.005 -0.231,0.007 -0.344,0.007 z" transform="matrix(-1.0017798,0,0,1.0017798,493.69869,-3.2426687)"/>
+                  <path style="fill:#141414;stroke:#141414;stroke-width:24.4555" d="m 182.76402,350.06503 c -2.347,0 -4.659,-0.826 -6.498,-2.398 -2.719,-2.323 -3.989,-5.921 -3.333,-9.436 6.541,-35.06 18.855,-69.833 36.603,-103.354 27.697,-52.341 66.923,-96.978 110.449,-125.687 43.788,-28.882004 90.025,-40.534004 130.186,-32.815004 3.09,0.594 5.72,2.607 7.1,5.436 1.38,2.827 1.348,6.14 -0.085,8.94 -12.754,24.921004 -27.597,49.455004 -44.115,72.921004 -10.583,15.031 -21.794,29.561 -33.323,43.184 -17.441,20.653 -36.132,39.939 -55.545,57.313 -2.112,1.89 -4.922,2.796 -7.749,2.489 l -42.12,-4.575 9.583,25.541 c 1.593,4.245 0.131,9.03 -3.564,11.66 -31.192,22.2 -62.901,39.093 -94.247,50.207 -1.091,0.385 -2.22,0.574 -3.342,0.574 z m 242.039,-256.066004 c -69.636,0 -149.658,59.652004 -197.591,150.232004 -13.767,26.003 -24.072,52.763 -30.741,79.771 21.947,-9.297 44.056,-21.563 65.994,-36.619 l -12.564,-33.486 c -1.22,-3.25 -0.666,-6.901 1.463,-9.644 2.127,-2.743 5.522,-4.182 8.979,-3.811 l 53.815,5.846 c 17.544,-15.974 34.455,-33.566 50.314,-52.347 11.155,-13.181 22.002,-27.236 32.244,-41.784 13.182,-18.726 25.257,-38.149 36.002,-57.897004 -2.622,-0.175 -5.261,-0.261 -7.915,-0.261 z" transform="matrix(-1.0017798,0,0,1.0017798,493.69869,-3.2426687)"/>
+                  <path style="fill:#d1a13d;stroke:none" d="m 312.91542,348.47876 c 4.559,0 8.553,-3.078 9.688,-7.51 h -0.001 c 4.95701,-17.337 7.73501,-35.289 8.27901,-53.44 1.895,-63.042 -23.63001,-123.726 -70.02801,-166.49199 -38.46,-35.477004 -88.474,-55.882004 -140.827,-57.453004 -25.885001,-0.783 -51.341001,2.968 -75.671999,11.131 -4.078,1.263 -7.043,5.063 -7.043,9.555 0,5.522 4.473,10 9.994998,10 1.085,0 2.173,-0.177 3.201,-0.523 22.143,-7.457 45.334,-10.879 68.919001,-10.173 47.536,1.428 92.948,19.953004 127.869,52.166004 42.137,38.83799 65.315,93.94299 63.596,151.18799 -0.482,16.018 -2.872,31.855 -7.111,47.1 -0.718,1.556 -1.045,3.317 -0.867,5.147 0.059,0.604 0.153,1.079 0.229,1.426 0.988,4.528 4.959,7.794 9.593,7.877 0.059,0.001 0.12,0.001 0.18,0.001 z m 0.113,-10.015 9.6,2.406 -0.027,0.099 -9.574,-2.505 z"/>
+                  <path style="fill:#d1a13d;stroke:none" d="m 317.79142,409.76876 c 5.367,0 9.80601,-4.258 9.98801,-9.662 0.688,-20.38 -1.004,-41.722 -5.03201,-63.433 -1.007,-5.431 -6.223,-9.015 -11.656,-8.008 -5.43,1.007 -9.016,6.226 -8.008,11.656 3.764,20.288 5.348,40.175 4.708,59.108 -0.187,5.52 4.137,10.145 9.656,10.332 0.115,0.005 0.231,0.007 0.344,0.007 z"/>
+                  <path style="fill:#d1a13d;stroke:none" d="m 312.86442,348.20876 c 2.347,0 4.659,-0.826 6.498,-2.398 2.719,-2.323 3.98901,-5.921 3.333,-9.436 -6.541,-35.06 -18.855,-69.833 -36.603,-103.354 -27.697,-52.341 -66.923,-96.97799 -110.449,-125.68699 -43.788,-28.882004 -90.025001,-40.534004 -130.186001,-32.815004 -3.089998,0.594 -5.719998,2.607 -7.099998,5.436 -1.38,2.827 -1.348,6.14 0.085,8.94 12.753998,24.921004 27.596998,49.455004 44.114998,72.920994 10.583,15.031 21.794001,29.561 33.323001,43.184 17.441,20.653 36.132,39.939 55.545,57.313 2.112,1.89 4.922,2.796 7.749,2.489 l 42.12,-4.575 -9.583,25.541 c -1.593,4.245 -0.131,9.03 3.564,11.66 31.192,22.2 62.901,39.093 94.247,50.207 1.091,0.385 2.22,0.574 3.342,0.574 z M 70.825419,92.142766 c 69.636001,0 149.658001,59.651994 197.591001,150.231994 13.767,26.003 24.072,52.763 30.741,79.771 -21.947,-9.297 -44.056,-21.563 -65.994,-36.619 l 12.564,-33.486 c 1.22,-3.25 0.666,-6.901 -1.463,-9.644 -2.127,-2.743 -5.522,-4.182 -8.979,-3.811 l -53.815,5.846 c -17.544,-15.974 -34.455,-33.566 -50.314,-52.347 -11.155,-13.181 -22.002,-27.236 -32.244001,-41.784 -13.182,-18.72599 -25.257,-38.14899 -36.002,-57.896994 2.622,-0.175 5.261,-0.261 7.915,-0.261 z"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="m -39.427589,634.24787 11.192362,-15.54721 c 3.440648,-4.77979 10.049108,-5.96305 14.760716,-2.64342 4.7108977,3.32042 5.7394185,9.88754 2.298791,14.66737 l -31.771452,44.13288 c -2.083457,2.89433 -5.454269,4.59159 -8.98243,4.52445 -3.529171,-0.0666 -6.748492,-1.89023 -8.579599,-4.85896 l -27.928493,-45.27062 c -3.025107,-4.90328 -1.43374,-11.41989 3.554857,-14.55572 4.988026,-3.13488 11.484822,-1.70227 14.50993,3.20102 l 9.57383,14.80192" style="fill:#d1a13d;stroke:#141414;stroke-width:1.44322" transform="translate(368.20041,-233.61703)"/>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <span class="version-chip mono" id="fs-version">v0.3</span>
+        </div>
+        <span class="status"><span class="ring dev"></span>
+          <span data-lang="fr">En développement</span><span data-lang="en">In development</span>
+        </span>
+      </div>
+      <h2>FletchScore</h2>
+      <p class="desc">
+        <span data-lang="fr">Application de notation pour le club : score final par épreuve, suivi des X, portail compétiteur en ligne bilingue.</span>
+        <span data-lang="en">Club scoring application: final score per event, X-count tracking, bilingual competitor web portal.</span>
+      </p>
+      <ul class="features">
+        <li><span data-lang="fr">Score global + comptage des X</span><span data-lang="en">Total score + X count</span></li>
+        <li><span data-lang="fr">Portail compétiteur FR/EN, clair/sombre</span><span data-lang="en">FR/EN competitor portal, light/dark</span></li>
+        <li><span data-lang="fr">Rattachement sécurisé par token</span><span data-lang="en">Secure token-based attachment</span></li>
+      </ul>
+      <div class="card-actions">
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchscore" target="_blank" rel="noopener" data-lang="fr">Voir le projet</a>
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchscore" target="_blank" rel="noopener" data-lang="en">View project</a>
+        <a class="btn-ghost" href="https://github.com/MrFanghoDev/fletchscore" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>
+    <span data-lang="fr">Développé pour les Archers Libres de Fontaine-le-Port ·</span>
+    <span data-lang="en">Built for Archers Libres de Fontaine-le-Port ·</span>
+    <a href="https://github.com/MrFanghoDev" target="_blank" rel="noopener">@MrFanghoDev</a>
+    · <a href="LICENSE" data-lang="fr">Licence GPLv3</a><a href="LICENSE" data-lang="en">GPLv3 License</a>
+  </p>
+</footer>
+
+<script>
+  function setLang(lang){
+    document.documentElement.classList.toggle('lang-en', lang === 'en');
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.classList.toggle('active', b.dataset.setLang === lang);
+    });
+  }
+
+  // Theme toggle: sets data-theme on <html>, matching the convention used
+  // by FletchTime / FletchScore (theme.css reacts to that attribute).
+  // Not persisted across reloads on purpose -- kept simple and consistent
+  // with the rest of this page.
+  function setTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-btn').forEach(b=>{
+      b.classList.toggle('active', b.dataset.setTheme === theme);
+    });
+  }
+  (function initTheme(){
+    var preferLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    var current = preferLight ? 'light' : 'dark';
+    document.querySelectorAll('.theme-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.setTheme === current);
+    });
+  })();
+
+  // Pull the latest published release tag straight from GitHub so the
+  // badges never drift from what's actually tagged. Falls back silently
+  // to the static value already in the markup (no releases yet, offline,
+  // or API rate-limited).
+  async function loadLatestVersion(repo, elementId){
+    try{
+      const res = await fetch(`https://api.github.com/repos/MrFanghoDev/${repo}/releases/latest`);
+      if(!res.ok) return;
+      const data = await res.json();
+      if(data && data.tag_name){
+        document.getElementById(elementId).textContent = data.tag_name;
+      }
+    }catch(e){ /* keep static fallback */ }
+  }
+  loadLatestVersion('fletchtime', 'ft-version');
+  loadLatestVersion('fletchscore', 'fs-version');
+</script>
+
+</body>
+</html>
