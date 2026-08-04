@@ -107,8 +107,7 @@
   .site-footer a{ color:var(--gold); text-decoration:none; }
   .site-footer a:hover{ text-decoration:underline; }
 
-  [data-lang="en"]{ display:none !important; }
-  html.lang-en [data-lang="fr"]{ display:none !important; }
+  [data-lang="en"]{ display:none; }
 </style>
 </head>
 <body>
@@ -124,6 +123,9 @@
       <button class="lang-btn" data-set-lang="en" onclick="setLang('en')">EN</button>
     </div>
     <div class="theme-toggle" role="group" aria-label="Thème / Theme">
+      <button class="theme-btn" data-set-theme="system" onclick="setTheme('system')">
+        <span data-lang="fr">Système</span><span data-lang="en">System</span>
+      </button>
       <button class="theme-btn" data-set-theme="light" onclick="setTheme('light')">
         <span data-lang="fr">Clair</span><span data-lang="en">Light</span>
       </button>
@@ -262,30 +264,39 @@
 </footer>
 
 <script>
+  // Inline styles always win over selector-based rules (like a.btn-primary's
+  // display:inline-flex), regardless of specificity -- so toggling display
+  // here directly, instead of via a CSS class, is what actually makes this
+  // reliable for every element, buttons included.
   function setLang(lang){
-    document.documentElement.classList.toggle('lang-en', lang === 'en');
+    document.querySelectorAll('[data-lang]').forEach(el=>{
+      el.style.display = (el.dataset.lang === lang) ? '' : 'none';
+    });
     document.querySelectorAll('.lang-btn').forEach(b=>{
       b.classList.toggle('active', b.dataset.setLang === lang);
     });
   }
+  setLang('fr');
 
   // Theme toggle: sets data-theme on <html>, matching the convention used
   // by FletchTime / FletchScore (theme.css reacts to that attribute).
-  // Not persisted across reloads on purpose -- kept simple and consistent
-  // with the rest of this page.
+  // "system" removes the attribute entirely so theme.css's own
+  // prefers-color-scheme fallback takes over. Not persisted across
+  // reloads on purpose -- kept simple and consistent with the rest of
+  // this page.
   function setTheme(theme){
-    document.documentElement.setAttribute('data-theme', theme);
+    if(theme === 'system'){
+      document.documentElement.removeAttribute('data-theme');
+    }else{
+      document.documentElement.setAttribute('data-theme', theme);
+    }
     document.querySelectorAll('.theme-btn').forEach(b=>{
       b.classList.toggle('active', b.dataset.setTheme === theme);
     });
   }
-  (function initTheme(){
-    var preferLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-    var current = preferLight ? 'light' : 'dark';
-    document.querySelectorAll('.theme-btn').forEach(function(b){
-      b.classList.toggle('active', b.dataset.setTheme === current);
-    });
-  })();
+  document.querySelectorAll('.theme-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.setTheme === 'system');
+  });
 
   // Pull the latest published release tag straight from GitHub so the
   // badges never drift from what's actually tagged. Falls back silently
