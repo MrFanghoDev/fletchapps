@@ -140,19 +140,19 @@
   <img class="mark" src="fletchapps-logo.png" alt="FletchApps">
   <h1>FletchApps</h1>
   <p class="tagline">
-    <span data-lang="fr">Les outils numériques des Archers Libres de Fontaine-le-Port pour le chronométrage et la notation de compétitions FFTL / IFAA.</span>
-    <span data-lang="en">Digital tools by Archers Libres de Fontaine-le-Port for FFTL / IFAA competition timing and scoring.</span>
+    <span data-lang="fr">Les outils numériques des Archers Libres de Fontaine-le-Port pour le chronométrage, la notation et le suivi personnel de tir FFTL / IFAA.</span>
+    <span data-lang="en">Digital tools by Archers Libres de Fontaine-le-Port for FFTL / IFAA timing, scoring and personal shooting logs.</span>
   </p>
   <div class="sub">
-    <span data-lang="fr">Deux outils, une même flèche</span>
-    <span data-lang="en">Two tools, one arrow</span>
+    <span data-lang="fr">Trois outils, une même flèche</span>
+    <span data-lang="en">Three tools, one arrow</span>
   </div>
 </header>
 
 <section class="page about">
   <p class="lede">
-    <span data-lang="fr">FletchApps régroupe les outils numériques développés en solo pour les Archers Libres de Fontaine-le-Port : un chronomètre de compétition et une application de notation, conçus pour les formats FFTL et IFAA. Le code est publié sur GitHub sous licence libre GNU GPLv3, et développé par itérations avec l'assistance d'une IA (Claude, Anthropic) en pair-programming — de l'architecture aux tests — le tout depuis un simple téléphone Android.</span>
-    <span data-lang="en">FletchApps brings together the tools built solo for Archers Libres de Fontaine-le-Port: a competition timer and a scoring application, designed for FFTL and IFAA formats. The code is published on GitHub under the free GNU GPLv3 license, and developed iteratively with AI pair-programming assistance (Claude, Anthropic) — from architecture to tests — all from an Android phone.</span>
+    <span data-lang="fr">FletchApps régroupe les outils numériques développés en solo pour les Archers Libres de Fontaine-le-Port : un chronomètre de compétition, une application de notation et un carnet de tir personnel, conçus pour les formats FFTL et IFAA. Le code est publié sur GitHub sous licence libre GNU GPLv3, et développé par itérations avec l'assistance d'une IA (Claude, Anthropic) en pair-programming — de l'architecture aux tests — le tout depuis un simple téléphone Android.</span>
+    <span data-lang="en">FletchApps brings together the tools built solo for Archers Libres de Fontaine-le-Port: a competition timer, a scoring application and a personal shooting log, designed for FFTL and IFAA formats. The code is published on GitHub under the free GNU GPLv3 license, and developed iteratively with AI pair-programming assistance (Claude, Anthropic) — from architecture to tests — all from an Android phone.</span>
   </p>
   <div class="pills">
     <span class="pill">GNU GPLv3</span>
@@ -259,6 +259,43 @@
       </div>
     </article>
 
+    <!-- FletchLog -->
+    <article class="card">
+      <div class="card-top">
+        <div class="logo-frame">
+          <svg viewBox="0 0 130 130" role="img" aria-label="FletchLog" xmlns="http://www.w3.org/2000/svg">
+            <rect width="130" height="130" rx="28" fill="#141414"/>
+            <circle cx="65" cy="65" r="44.5" fill="none" stroke="#d1a13d" stroke-width="6.5"/>
+            <circle cx="65" cy="65" r="26.5" fill="none" stroke="#d1a13d" stroke-width="6.5"/>
+            <circle cx="65" cy="65" r="8" fill="#d1a13d"/>
+          </svg>
+          <span class="version-chip mono" id="fl-version">v0.1.0</span>
+        </div>
+        <span class="status" id="fl-status">
+          <span class="ring live" id="fl-status-ring"></span>
+          <span data-lang="fr" data-status="live">Déployé</span>
+          <span data-lang="en" data-status="live">Deployed</span>
+          <span data-lang="fr" data-status="dev" class="status-hidden">En développement</span>
+          <span data-lang="en" data-status="dev" class="status-hidden">In development</span>
+        </span>
+      </div>
+      <h2>FletchLog</h2>
+      <p class="desc">
+        <span data-lang="fr">Carnet personnel pour archers : où et sur quoi tu as tiré. Installable sur ton téléphone, fonctionne hors connexion, aucune donnée envoyée sur un serveur.</span>
+        <span data-lang="en">Personal shooting log for archers: where and on what you shot. Installable on your phone, works offline, no data sent to a server.</span>
+      </p>
+      <ul class="features">
+        <li><span data-lang="fr">Lieu, cible, discipline, distance, météo, photo</span><span data-lang="en">Location, target, discipline, distance, weather, photo</span></li>
+        <li><span data-lang="fr">Vues Liste et Carte, filtres et recherche</span><span data-lang="en">List and Map views, filters and search</span></li>
+        <li><span data-lang="fr">100% local -- aucun serveur, aucun compte</span><span data-lang="en">100% local -- no server, no account</span></li>
+      </ul>
+      <div class="card-actions">
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchlog" target="_blank" rel="noopener" data-lang="fr">Voir le projet</a>
+        <a class="btn-primary" href="https://mrfanghodev.github.io/fletchlog" target="_blank" rel="noopener" data-lang="en">View project</a>
+        <a class="btn-ghost" href="https://github.com/MrFanghoDev/fletchlog" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
   </div>
 </main>
 
@@ -339,6 +376,7 @@
   }
   loadStatusAndVersion('fletchtime', 'ft');
   loadStatusAndVersion('fletchscore', 'fs');
+  loadStatusAndVersion('fletchlog', 'fl');
 </script>
 
 </body>
