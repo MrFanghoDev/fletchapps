@@ -123,15 +123,9 @@
       <button class="lang-btn" data-set-lang="en" onclick="setLang('en')">EN</button>
     </div>
     <div class="theme-toggle" role="group" aria-label="Thème / Theme">
-      <button class="theme-btn" data-set-theme="system" onclick="setTheme('system')">
-        <span data-lang="fr">Système</span><span data-lang="en">System</span>
-      </button>
-      <button class="theme-btn" data-set-theme="light" onclick="setTheme('light')">
-        <span data-lang="fr">Clair</span><span data-lang="en">Light</span>
-      </button>
-      <button class="theme-btn" data-set-theme="dark" onclick="setTheme('dark')">
-        <span data-lang="fr">Sombre</span><span data-lang="en">Dark</span>
-      </button>
+      <button class="theme-btn" data-set-theme="system" onclick="setTheme('system')" data-label-fr="Thème système" data-label-en="System theme" aria-label="Thème système">◐</button>
+      <button class="theme-btn" data-set-theme="light" onclick="setTheme('light')" data-label-fr="Thème clair" data-label-en="Light theme" aria-label="Thème clair">☀</button>
+      <button class="theme-btn" data-set-theme="dark" onclick="setTheme('dark')" data-label-fr="Thème sombre" data-label-en="Dark theme" aria-label="Thème sombre">☾</button>
     </div>
   </div>
 </nav>
@@ -324,6 +318,11 @@
     });
     document.querySelectorAll('.lang-btn').forEach(b=>{
       b.classList.toggle('active', b.dataset.setLang === lang);
+    });
+    // Boutons de thème : icônes seules (voir .theme-toggle plus haut), le
+    // libellé localisé ne vit que dans l'aria-label pour l'accessibilité.
+    document.querySelectorAll('[data-label-fr]').forEach(el=>{
+      el.setAttribute('aria-label', lang === 'en' ? el.dataset.labelEn : el.dataset.labelFr);
     });
   }
   setLang('fr');
