@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FletchApps — Outils de compétition tir à l'arc</title>
-<link rel="icon" href="fletchapps-logo.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="theme.css">
 <style>
   /* Page-specific rules for the FletchApps hub, built on theme.css tokens.
@@ -22,16 +22,17 @@
   }
   .nav-brand{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:15px; letter-spacing:0.04em; }
   .nav-logo-crop{ width:32px; height:32px; border-radius:9px; overflow:hidden; background:#000; flex-shrink:0; }
-  .nav-logo-crop img{ width:100%; height:100%; object-fit:cover; object-position:50% 16%; display:block; }
+  .nav-logo-crop img{ width:100%; height:100%; object-fit:cover; display:block; }
   .nav-controls{ display:flex; gap:0.5rem; }
 
   /* ---------- hero ---------- */
   .hero{ text-align:center; padding:56px 0 36px; }
   .hero img.mark{ width:186px; height:auto; margin:0 auto 20px; display:block; }
   .hero h1{
-    position:absolute; width:1px; height:1px; overflow:hidden;
-    clip:rect(0 0 0 0); white-space:nowrap;
+    font-size:2.25rem; font-weight:700; letter-spacing:-0.01em; margin:0 0 8px;
   }
+  .wordmark .fletch{ color:var(--text); }
+  .wordmark .apps{ color:var(--gold); }
   .hero p.tagline{ font-size:17px; color:var(--text-muted); max-width:480px; margin:0 auto; line-height:1.6; }
   .hero .sub{
     margin-top:20px; font-family:var(--font-mono); font-size:12px;
@@ -114,8 +115,8 @@
 
 <nav class="nav-bar">
   <div class="nav-brand">
-    <div class="nav-logo-crop"><img src="fletchapps-logo.png" alt=""></div>
-    FletchApps
+    <div class="nav-logo-crop"><img src="icon.svg" alt=""></div>
+    <span class="wordmark"><span class="fletch">Fletch</span><span class="apps">Apps</span></span>
   </div>
   <div class="nav-controls">
     <div class="lang-toggle" role="group" aria-label="Langue / Language">
@@ -131,8 +132,8 @@
 </nav>
 
 <header class="page hero">
-  <img class="mark" src="fletchapps-logo.png" alt="FletchApps">
-  <h1>FletchApps</h1>
+  <img class="mark" src="icon.svg" alt="FletchApps">
+  <h1 class="wordmark"><span class="fletch">Fletch</span><span class="apps">Apps</span></h1>
   <p class="tagline">
     <span data-lang="fr">Les outils numériques des Archers Libres de Fontaine-le-Port pour le chronométrage, la notation et le suivi personnel de tir FFTL / IFAA.</span>
     <span data-lang="en">Digital tools by Archers Libres de Fontaine-le-Port for FFTL / IFAA timing, scoring and personal shooting logs.</span>

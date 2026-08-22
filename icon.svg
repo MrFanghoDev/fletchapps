@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300px" height="300px" viewBox="0 0 100 100">
+
+  <!-- Cadre : rayon d'angle calqué sur le PNG (0.158 du carré) -->
+  <rect x="3" y="3" width="94" height="94" rx="14.8" ry="14.8"
+    fill="none" stroke="#000" stroke-width="3"/>
+  <rect x="3" y="3" width="94" height="94" rx="14.8" ry="14.8"
+    fill="none" stroke="#d1a13d" stroke-width="2"/>
+
+  <!-- Plume haut : centre (50, 33.4), hauteur cible ≈ 31.5% du cadre -->
+  <g transform="translate(50,33.36) scale(0.843) translate(-44.843,-39.079)">
+    <path stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#000"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+    <path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#d1a13d"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+  </g>
+
+  <!-- Plume bas-gauche : centre (34, 65.67), hauteur cible ≈ 32.7% -->
+  <g transform="translate(30,65.67) scale(0.876) translate(-44.843,-39.079)">
+    <path stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#000"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+    <path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#d1a13d"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+  </g>
+
+  <!-- Plume bas-droite : centre (66, 65.67), miroir de la précédente -->
+  <g transform="translate(70,65.67) scale(0.876) translate(-44.843,-39.079)">
+    <path stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#000"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+    <path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#d1a13d"
+      d="M 62.853 39.187 L 34.723 39.187 L 25.508 29.226 L 51.190 29.365 L 56.032 39.187 L 51.190 49.009 L 25.508 49.148 L 34.723 39.187 M 39.680 29.831 L 46.066 39.187 L 39.680 48.543"
+      style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0, 1, -1, 0, 0.662491, -0.108498)"/>
+  </g>
+
+</svg>
