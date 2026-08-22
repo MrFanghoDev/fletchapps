@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300px" height="300px" viewBox="0 0 100 100">
 
+  <!-- Fond : #141414, même couleur que les logos FletchTime/FletchScore
+       (voir fletchtime/web/logo.svg, fletchscore/branding/logo.svg) et
+       déjà utilisée par les cadres des cartes du portail. -->
+  <rect x="3" y="3" width="94" height="94" rx="14.8" ry="14.8" fill="#141414"/>
+
   <!-- Cadre : rayon d'angle calqué sur le PNG (0.158 du carré) -->
   <rect x="3" y="3" width="94" height="94" rx="14.8" ry="14.8"
     fill="none" stroke="#000" stroke-width="3"/>
