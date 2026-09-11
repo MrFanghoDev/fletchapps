@@ -1,0 +1,7 @@
+# Éditeurs / OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# Pas de build step (HTML/CSS pur) -- rien d'autre à ignorer pour
+# l'instant.

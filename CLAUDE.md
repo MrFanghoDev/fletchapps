@@ -8,8 +8,9 @@ reste volontairement court : FletchApps est un projet simple.
 ## Contexte en une phrase
 
 FletchApps est le portail statique (une seule page, `index.html` +
-`theme.css`, aucune dépendance/build) qui présente et relie FletchScore
-et FletchTime.
+`theme.css`, aucune dépendance/build) qui présente et relie les projets
+Fletch : FletchScore, FletchTime, FletchLog, FletchGames et
+FletchStock.
 
 ## Conventions techniques
 
